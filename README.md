@@ -1,2 +1,3 @@
-# labex
-Laboratorio Exames Dasa
+# lab-dasa
+
+- Api de cadastro e consulta de laboratórios e exames
