@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `exame` (
-  `id` int NOT NULL,
+  `id` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
   `nome` varchar(255) NOT NULL,
   `tipo` varchar(3) NOT NULL,
   `status` varchar(1) NOT NULL
@@ -42,8 +42,8 @@ CREATE TABLE `exame` (
 -- Índices de tabela `exame`
 --
 ALTER TABLE `exame`
-  ADD PRIMARY KEY (`id`),
   ADD KEY `nome` (`nome`);
+  
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

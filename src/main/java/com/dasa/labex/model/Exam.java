@@ -1,11 +1,12 @@
 package com.dasa.labex.model;
 
+
+
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.hateoas.RepresentationModel;
-
-import com.sun.istack.NotNull;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -29,6 +30,7 @@ public class Exam extends RepresentationModel<Exam> {
 	@NotNull
 	private TypeEnum type;
 	
+	@NotNull
 	private StatusEnum status;
 
 }

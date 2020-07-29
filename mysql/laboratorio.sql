@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `laboratorio` (
-  `id` int NOT NULL,
+  `id` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
   `nome` varchar(255) NOT NULL,
   `status` varchar(1) NOT NULL,
   `id_endereco` int NOT NULL
@@ -42,7 +42,6 @@ CREATE TABLE `laboratorio` (
 -- Índices de tabela `laboratorio`
 --
 ALTER TABLE `laboratorio`
-  ADD PRIMARY KEY (`id`),
   ADD KEY `nome` (`nome`),
   ADD KEY `fk_id_endereco` (`id_endereco`) USING BTREE;
 

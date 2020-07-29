@@ -35,10 +35,12 @@ public class ExamMapper {
 	
 	public ExamEntity buildExam(Exam exam) {
 		return ExamEntity.builder()
+				.id(exam.getId())
 				.name(exam.getName())
 				.type(exam.getType().name())
 				.status(exam.getStatus().getStatus().charAt(0))
 				.build();
+				
 	}
 	
 	public List<Exam> buildExams(List<ExamEntity> examsEntity) {

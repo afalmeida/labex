@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `endereco` (
-  `id` int NOT NULL,
+  `id` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
   `rua` varchar(255) NOT NULL,
   `numero` varchar(255) NOT NULL,
   `complemento` varchar(255) NOT NULL,
@@ -45,9 +45,6 @@ CREATE TABLE `endereco` (
 --
 -- Índices de tabela `endereco`
 --
-ALTER TABLE `endereco`
-  ADD PRIMARY KEY (`id`);
-COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

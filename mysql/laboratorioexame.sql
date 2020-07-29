@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `laboratorioexame` (
-  `id` int NOT NULL,
+  `id` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
   `id_laboratorio` int NOT NULL,
   `id_exame` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -41,7 +41,6 @@ CREATE TABLE `laboratorioexame` (
 -- Índices de tabela `laboratorioexame`
 --
 ALTER TABLE `laboratorioexame`
-  ADD PRIMARY KEY (`id`),
   ADD KEY `fk_id_laboratorio` (`id_laboratorio`),
   ADD KEY `fk_id_exame` (`id_exame`);
 

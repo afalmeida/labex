@@ -34,7 +34,7 @@ public class LaboratoryEntity implements Serializable{
 	private static final long serialVersionUID = -4895413062180851388L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
 	@Column(name= "nome")

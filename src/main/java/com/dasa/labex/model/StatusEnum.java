@@ -3,7 +3,8 @@ package com.dasa.labex.model;
 public enum StatusEnum {
 	
 	ATIVO("A"),
-	INATIVO("I");
+	INATIVO("I"),
+	ALL("");
 	
 	private String status;
 	
@@ -23,5 +24,15 @@ public enum StatusEnum {
 		}
 		
 		return StatusEnum.ATIVO;
+	}
+	
+	public static StatusEnum status(String status) {		
+		for (StatusEnum statusEnum : StatusEnum.values()) {
+			if(statusEnum.status.equalsIgnoreCase(String.valueOf(status))) {
+				return statusEnum;
+			}
+		}
+		
+		return StatusEnum.ALL;
 	}
 }
