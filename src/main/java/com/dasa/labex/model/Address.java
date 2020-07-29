@@ -2,7 +2,6 @@ package com.dasa.labex.model;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 
 import org.springframework.hateoas.RepresentationModel;
 
@@ -22,17 +21,28 @@ import lombok.ToString;
 @EqualsAndHashCode(callSuper=false)
 @Valid
 @JsonInclude(Include.NON_NULL)
-public class Laboratory extends RepresentationModel<Laboratory> {
+public class Address extends RepresentationModel<Address> {
 	
 	private Long id;
 	
 	@NotEmpty
-	private String name;
+	private String street;
 	
-	@NotNull
-	private StatusEnum status;
+	@NotEmpty
+	private String number;
 	
-	@NotNull
-	private Address address;
+	@NotEmpty
+	private String neighborhood;
+	
+	private String additionalInfo;
+	
+	@NotEmpty
+	private String zipCode;
+	
+	@NotEmpty
+	private String city;
+	
+	@NotEmpty
+	private String state;
 
 }

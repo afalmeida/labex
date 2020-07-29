@@ -3,6 +3,8 @@ package com.dasa.labex.service;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
 
@@ -19,6 +21,8 @@ import org.mockito.Spy;
 import org.springframework.test.util.ReflectionTestUtils;
 
 import com.dasa.labex.entity.ExamEntity;
+import com.dasa.labex.exception.NotFoundException;
+import com.dasa.labex.exception.UnprocessableEntityException;
 import com.dasa.labex.factory.ExamFactory;
 import com.dasa.labex.mapper.ExamMapper;
 import com.dasa.labex.model.Exam;
@@ -65,6 +69,17 @@ public class ExamServiceTest {
 	}
 	
 	@Test
+	public void examNotFound() {
+		when(examRepository.findById(EXAM_ID)).thenThrow(NotFoundException.class);
+
+		assertThrows(NotFoundException.class, () -> {
+			examService.exam(EXAM_ID);
+		});
+	}
+	
+
+	
+	@Test
 	public void exams() {
 		when(examFactory.exams(null,"ALL")).thenReturn(examsMock());
 
@@ -75,6 +90,16 @@ public class ExamServiceTest {
 		assertTrue(exams.get(1).getType().equals(TypeEnum.IMG));
 		assertTrue(exams.get(0).getStatus().equals(StatusEnum.ATIVO));
 		assertTrue(exams.get(1).getStatus().equals(StatusEnum.INATIVO));
+		
+	}
+	
+	@Test
+	public void examsNotFound() {
+		when(examFactory.exams(null,"ALL")).thenReturn(new ArrayList<Exam>());
+
+		assertThrows(NotFoundException.class, () -> {
+			examService.exams(null, "ALL");
+		});
 		
 	}
 	
@@ -106,11 +131,30 @@ public class ExamServiceTest {
 	
 	@Test
 	public void delete() {
-
+		when(examRepository.findById(EXAM_ID)).thenReturn(examsEntityMock());
 		
-		assertNotNull(null);
+		examService.delete(EXAM_ID);
 
-
+	}
+	
+	@Test()
+	public void deleteStatusInativo() {
+		when(examRepository.findById(EXAM_ID)).thenReturn(examsInativoEntityMock());
+		
+		try {
+			 examService.delete(EXAM_ID);
+			 
+		} catch (Exception ex) {        
+			if (ex instanceof UnprocessableEntityException) {
+				UnprocessableEntityException httpClientErrorException = (UnprocessableEntityException) ex;
+				
+	            assertNotNull(httpClientErrorException);
+	            assertTrue(httpClientErrorException.getValidationErrors().size()==1);
+	            assertEquals("Existem erros de validacao no request enviado", ex.getMessage());
+	            assertEquals("Impossivel remover um exame com status INATIVO", httpClientErrorException.getValidationErrors().get(0).getError());
+	            assertSame(UnprocessableEntityException.class, ex.getClass());
+			}
+    	}
 	}
 	
 
@@ -118,6 +162,12 @@ public class ExamServiceTest {
 		return Optional.of(ExamEntity.builder().id(1l).name("EXAME A").type("ANC").status('A').build());
 
 	}
+	
+	private Optional<ExamEntity> examsInativoEntityMock() {
+		return Optional.of(ExamEntity.builder().id(1l).name("EXAME A").type("ANC").status('I').build());
+
+	}
+	
 	
 	private List<Exam> examsMock() {
 		List<Exam> exams = new ArrayList<Exam>();

@@ -31,9 +31,9 @@ CREATE TABLE `endereco` (
   `id` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
   `rua` varchar(255) NOT NULL,
   `numero` varchar(255) NOT NULL,
-  `complemento` varchar(255) NOT NULL,
+  `complemento` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `bairro` varchar(255) NOT NULL,
-  `cep` varchar(7) NOT NULL,
+  `cep` varchar(8) NOT NULL,
   `cidade` varchar(255) NOT NULL,
   `estado` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;

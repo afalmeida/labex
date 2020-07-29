@@ -34,7 +34,7 @@ public class LaboratoryEntity implements Serializable{
 	private static final long serialVersionUID = -4895413062180851388L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	@Column(name= "nome")
@@ -42,9 +42,5 @@ public class LaboratoryEntity implements Serializable{
 	
 	@Column(name= "status")
 	private char status;
-	
-	@OneToOne(cascade = CascadeType.ALL ,fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_endereco", referencedColumnName = "id")
-	private AddressEntity address;
 
 }
