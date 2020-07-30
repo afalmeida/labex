@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 import com.dasa.labex.controller.ExamController;
 import com.dasa.labex.entity.ExamEntity;
 import com.dasa.labex.model.Exam;
+import com.dasa.labex.model.ExamUpload;
 import com.dasa.labex.model.StatusEnum;
 import com.dasa.labex.model.TypeEnum;
 
@@ -46,8 +47,7 @@ public class ExamMapper {
 	public ExamEntity buildExam(Long id) {
 		return ExamEntity.builder()
 				.id(id)
-				.build();
-				
+				.build();		
 	}
 	
 	
@@ -59,6 +59,20 @@ public class ExamMapper {
 				.status(exam.getStatus().getStatus().charAt(0))
 				.build();
 				
+	}
+	
+	public List<ExamEntity> buildExamsEntity(List<ExamUpload> exams) {
+		List<ExamEntity> examsEntity = new ArrayList<ExamEntity>();
+		
+		exams.forEach(examInfo ->{
+			examsEntity.add(ExamEntity.builder()
+					.name(examInfo.getName())
+					.type(examInfo.getType())
+					.status(examInfo.getStatus().charAt(0))
+					.build());
+		});
+		
+		return examsEntity;
 	}
 	
 	public List<Exam> buildExams(List<ExamEntity> examsEntity) {

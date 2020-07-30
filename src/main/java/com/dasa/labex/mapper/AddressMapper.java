@@ -12,13 +12,24 @@ import com.dasa.labex.entity.AddressEntity;
 import com.dasa.labex.entity.LaboratoryAddressEntity;
 import com.dasa.labex.entity.LaboratoryEntity;
 import com.dasa.labex.model.Address;
+import com.dasa.labex.model.LaboratoryUpload;
 
 @Component
 public class AddressMapper {
 	
 	private AddressMapper() {}
 	
-	
+	public Address buildAddress(LaboratoryUpload laboratoryUpload) {
+		return Address.builder()
+				.street(laboratoryUpload.getStreet())
+				.number(laboratoryUpload.getNumber())
+				.neighborhood(laboratoryUpload.getNeighborhood())
+				.additionalInfo(laboratoryUpload.getAdditionalInfo())
+				.zipCode(laboratoryUpload.getZipCode())
+				.city(laboratoryUpload.getCity())
+				.state(laboratoryUpload.getState())
+				.build();
+	}
 	public AddressEntity buildAddressEntity (Address address) {		
 		return AddressEntity.builder()
 				.id(address.getId())

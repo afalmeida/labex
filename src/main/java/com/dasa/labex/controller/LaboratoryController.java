@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.dasa.labex.exception.BadRequestException;
 import com.dasa.labex.exception.FieldError;
@@ -53,7 +54,7 @@ public class LaboratoryController {
         return new ResponseEntity<Laboratory>(laboratoryService.laboratory(id), HttpStatus.OK);
     }
     
-    @PostMapping("")
+    @PostMapping()
     public ResponseEntity<Laboratory> save(
     		@Valid @RequestBody Laboratory laboratory, BindingResult result) {
     	
@@ -64,6 +65,13 @@ public class LaboratoryController {
     	Laboratory newLaboratory = laboratoryService.save(laboratory);
     	
     	return new ResponseEntity<Laboratory>(newLaboratory,HttpStatus.CREATED);
+    }
+    
+	@PostMapping(consumes = "multipart/form-data")
+	public ResponseEntity<String> uploadLaboratories(@RequestParam("file") MultipartFile file) {
+
+		laboratoryService.uploadLaboratories(file);
+		return new ResponseEntity<String>(HttpStatus.CREATED); 
     }
     
     @PutMapping("/{id}")

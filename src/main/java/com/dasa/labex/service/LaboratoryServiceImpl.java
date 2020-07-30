@@ -1,10 +1,15 @@
 package com.dasa.labex.service;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.dasa.labex.entity.LaboratoryEntity;
 import com.dasa.labex.exception.FieldError;
@@ -13,9 +18,13 @@ import com.dasa.labex.exception.NotFoundException;
 import com.dasa.labex.exception.UnprocessableEntityException;
 import com.dasa.labex.factory.LaboratoryFactory;
 import com.dasa.labex.mapper.LaboratoryMapper;
+import com.dasa.labex.model.ExamUpload;
 import com.dasa.labex.model.Laboratory;
+import com.dasa.labex.model.LaboratoryUpload;
 import com.dasa.labex.model.StatusEnum;
 import com.dasa.labex.repository.LaboratoryRepository;
+import com.opencsv.bean.CsvToBean;
+import com.opencsv.bean.CsvToBeanBuilder;
 
 @Service
 public class LaboratoryServiceImpl implements LaboratoryService {
@@ -60,6 +69,7 @@ public class LaboratoryServiceImpl implements LaboratoryService {
 	}
 
 	@Override
+	@Transactional
 	public Laboratory save(Laboratory laboratory) {
 		try {
 			LaboratoryEntity laboratoryEntity = laboratoryRepository.save(
@@ -76,6 +86,7 @@ public class LaboratoryServiceImpl implements LaboratoryService {
 	}
 	
 	@Override
+	@Transactional
 	public void update(Laboratory laboratory) {
 		try {
 			this.laboratory(laboratory.getId());
@@ -96,6 +107,7 @@ public class LaboratoryServiceImpl implements LaboratoryService {
 	}
 
 	@Override
+	@Transactional
 	public void delete(Long id) {
 		try {
 			Laboratory laboratory = this.laboratory(id);
@@ -120,6 +132,28 @@ public class LaboratoryServiceImpl implements LaboratoryService {
 			throw e;
 		
 		} catch (Exception e) {
+			throw new InternalServerException(e);
+		}
+	}
+	
+	@Override
+	public void uploadLaboratories(MultipartFile file) {
+        try {
+        	Reader reader = new BufferedReader(new InputStreamReader(file.getInputStream()));
+
+            CsvToBean<LaboratoryUpload> csv = new CsvToBeanBuilder<LaboratoryUpload>(reader)
+            		.withType(LaboratoryUpload.class)
+                    .withIgnoreLeadingWhiteSpace(true)
+                    .build();
+            
+            List<LaboratoryUpload> laboratories = csv.parse();
+            
+            laboratories.forEach(laboratoryInfo ->{
+            	this.save(laboratoryMapper.buildLaboratory(laboratoryInfo));
+            	
+            });
+
+    	} catch (Exception e) {
 			throw new InternalServerException(e);
 		}
 	}

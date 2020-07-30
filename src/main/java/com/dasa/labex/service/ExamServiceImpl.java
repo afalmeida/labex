@@ -1,11 +1,15 @@
 package com.dasa.labex.service;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.dasa.labex.entity.ExamEntity;
 import com.dasa.labex.exception.FieldError;
@@ -15,8 +19,11 @@ import com.dasa.labex.exception.UnprocessableEntityException;
 import com.dasa.labex.factory.ExamFactory;
 import com.dasa.labex.mapper.ExamMapper;
 import com.dasa.labex.model.Exam;
+import com.dasa.labex.model.ExamUpload;
 import com.dasa.labex.model.StatusEnum;
 import com.dasa.labex.repository.ExamRepository;
+import com.opencsv.bean.CsvToBean;
+import com.opencsv.bean.CsvToBeanBuilder;
 
 @Service
 public class ExamServiceImpl implements ExamService {
@@ -100,4 +107,20 @@ public class ExamServiceImpl implements ExamService {
 		}
 	}
 
+	@Override
+	public void uploadExams(MultipartFile file) {
+        try {
+        	Reader reader = new BufferedReader(new InputStreamReader(file.getInputStream()));
+
+            CsvToBean<ExamUpload> exams = new CsvToBeanBuilder<ExamUpload>(reader)
+            		.withType(ExamUpload.class)
+                    .withIgnoreLeadingWhiteSpace(true)
+                    .build();
+            
+            examRepository.saveAll(examMapper.buildExamsEntity(exams.parse()));
+
+    	} catch (Exception e) {
+			throw new InternalServerException(e);
+		}
+	}
 }

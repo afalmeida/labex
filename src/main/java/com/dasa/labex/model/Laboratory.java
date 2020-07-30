@@ -21,7 +21,7 @@ import lombok.ToString;
 @ToString
 @EqualsAndHashCode(callSuper=false)
 @Valid
-@JsonInclude(Include.NON_NULL)
+@JsonInclude(Include.NON_EMPTY)
 public class Laboratory extends RepresentationModel<Laboratory> {
 	
 	private Long id;
