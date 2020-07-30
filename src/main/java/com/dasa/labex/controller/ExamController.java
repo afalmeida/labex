@@ -27,7 +27,12 @@ import com.dasa.labex.exception.FieldError;
 import com.dasa.labex.model.Exam;
 import com.dasa.labex.service.ExamService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 
+
+@Api(tags = "EXAMS",  description = "recursos de exames")
 @RestController
 @RequestMapping(value = "/labex/exams", produces = MediaType.APPLICATION_JSON_VALUE)
 public class ExamController {
@@ -37,23 +42,34 @@ public class ExamController {
 
 	private final static String DEFAULT_STATUS = "A";
 
+	@ApiOperation(value = "Consulta informações de uma lista exames" ) 
 	@GetMapping()
 	@ResponseBody
-	public ResponseEntity<List<Exam>> exams(@RequestParam(value = "name", required = false) String name,
+	public ResponseEntity<List<Exam>> exams(
+			@ApiParam(value="Nome do exame")
+			@RequestParam(value = "name", required = false) String name,
+			
+			@ApiParam(value="Status do Exame, [A=ATIVO, I=INATIVO, ALL=TODOS]")
 			@RequestParam(defaultValue = DEFAULT_STATUS, value = "status", required = false) String status) {
 
 		return new ResponseEntity<List<Exam>>(examService.exams(name, status), HttpStatus.OK);
 	}
 
+	@ApiOperation(value = "Consulta informações por id do exame" ) 
 	@GetMapping("/{id}")
 	@ResponseBody
-	public ResponseEntity<Exam> exam(@PathVariable("id") Long id) {
+	public ResponseEntity<Exam> exam(
+			@ApiParam(value="Id do exame")
+			@PathVariable("id") Long id) {
 
 		return new ResponseEntity<Exam>(examService.exam(id), HttpStatus.OK);
 	}
 
+	@ApiOperation(value = "Salvar informações de um exame") 
 	@PostMapping()
-	public ResponseEntity<Exam> save(@Valid @RequestBody Exam exam, BindingResult result) {
+	public ResponseEntity<Exam> save(
+			@ApiParam(value="Body do exame")
+			@Valid @RequestBody Exam exam, BindingResult result) {
 
 		if (result.hasErrors()) {
 			handleErrorBadRequestException(result);
@@ -64,16 +80,22 @@ public class ExamController {
 		return new ResponseEntity<Exam>(newExam, HttpStatus.CREATED);
 	}
 	
+	@ApiOperation(value = "Salvar informações de um exame em lote via CSV") 
 	@PostMapping(consumes = "multipart/form-data")
-	public ResponseEntity<String> uploadExams(@RequestParam("file") MultipartFile file) {
+	public ResponseEntity<String> uploadExams(
+			@ApiParam(value="File dos exames, arquivo csv")
+			@RequestParam("file") MultipartFile file) {
 
 		examService.uploadExams(file);
 		return new ResponseEntity<String>(HttpStatus.CREATED); 
     }
 
 
+	@ApiOperation(value = "Atualizar informações de um exame") 
 	@PutMapping("/{id}")
-	public ResponseEntity<String> update(@PathVariable("id") Long id, @Valid @RequestBody Exam exam,
+	public ResponseEntity<String> update(
+			@ApiParam(value="Id do exame")
+			@PathVariable("id") Long id, @Valid @RequestBody Exam exam,
 			BindingResult result) {
 
 		exam.setId(id);
@@ -87,8 +109,11 @@ public class ExamController {
 		return new ResponseEntity<String>(HttpStatus.NO_CONTENT);
 	}
 
+	@ApiOperation(value = "Deletar informações de um exame") 
 	@DeleteMapping("/{id}")
-	public ResponseEntity<String> delete(@PathVariable("id") Long id) {
+	public ResponseEntity<String> delete(
+			@ApiParam(value="Id do exame")
+			@PathVariable("id") Long id) {
 
 		examService.delete(id);
 

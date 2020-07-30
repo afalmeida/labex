@@ -27,6 +27,11 @@ import com.dasa.labex.exception.FieldError;
 import com.dasa.labex.model.Laboratory;
 import com.dasa.labex.service.LaboratoryService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+
+@Api(tags = "LABORATORIES",  description = "recursos de laboratorios")
 @RestController
 @RequestMapping(value = "/labex/laboratories", produces = MediaType.APPLICATION_JSON_VALUE)
 public class LaboratoryController {
@@ -36,24 +41,33 @@ public class LaboratoryController {
 	
 	private final static String DEFAULT_STATUS = "A";
 	
+	@ApiOperation(value = "Consulta informações de uma lista laboratorios" ) 
     @GetMapping()
     @ResponseBody
     public ResponseEntity<List<Laboratory>> laboratories(
+    		@ApiParam(value="Nome do laboratorio")
     		@RequestParam(value = "name", required = false) String name,
+    		
+    		@ApiParam(value="Status do laboratorio")
     		@RequestParam(defaultValue = DEFAULT_STATUS, value = "status", required = false) String status,
+    		
+    		@ApiParam(value="Nome do exame")
     		@RequestParam(value = "examName", required = false) String examName) {
     	
         return new ResponseEntity<List<Laboratory>>(laboratoryService.laboratories(name,status, examName), HttpStatus.OK);
     }
     
+	@ApiOperation(value = "Consulta informações por id do laboratorio" ) 
     @GetMapping("/{id}")
     @ResponseBody
     public ResponseEntity<Laboratory> laboratory(
+    		@ApiParam(value="Id do laboratorio")
     		@PathVariable("id") Long id) {
     	
         return new ResponseEntity<Laboratory>(laboratoryService.laboratory(id), HttpStatus.OK);
     }
     
+	@ApiOperation(value = "Salvar informações de um laboratorio") 
     @PostMapping()
     public ResponseEntity<Laboratory> save(
     		@Valid @RequestBody Laboratory laboratory, BindingResult result) {
@@ -67,15 +81,20 @@ public class LaboratoryController {
     	return new ResponseEntity<Laboratory>(newLaboratory,HttpStatus.CREATED);
     }
     
+	@ApiOperation(value = "Salvar informações de um laboratorio em lote via CSV") 
 	@PostMapping(consumes = "multipart/form-data")
-	public ResponseEntity<String> uploadLaboratories(@RequestParam("file") MultipartFile file) {
+	public ResponseEntity<String> uploadLaboratories(
+			@ApiParam(value="File dos laboratorios, arquivo csv")
+			@RequestParam("file") MultipartFile file) {
 
 		laboratoryService.uploadLaboratories(file);
 		return new ResponseEntity<String>(HttpStatus.CREATED); 
     }
     
+	@ApiOperation(value = "Atualizar informações de um laboratorio") 
     @PutMapping("/{id}")
     public ResponseEntity<String> update(
+    		@ApiParam(value="Id do laboratorio")
     		@PathVariable("id") Long id,
     		@Valid @RequestBody Laboratory laboratory, BindingResult result) {
     	
@@ -90,8 +109,10 @@ public class LaboratoryController {
     	return new ResponseEntity<String>(HttpStatus.NO_CONTENT);
     }
     
+	@ApiOperation(value = "Deletar informações de um laboratorio") 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> delete(
+    		@ApiParam(value="Id do laboratorio")
     		@PathVariable("id") Long id) {
     	
     	laboratoryService.delete(id);

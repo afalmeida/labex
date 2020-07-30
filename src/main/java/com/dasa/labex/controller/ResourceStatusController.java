@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.annotations.Api;
+
+@Api(tags = "RESOURCE-STATUS", description = "recurso de status da API")
 @RestController
 @RequestMapping(value = "/resource-status", produces = MediaType.APPLICATION_JSON_VALUE)
 public class ResourceStatusController {
