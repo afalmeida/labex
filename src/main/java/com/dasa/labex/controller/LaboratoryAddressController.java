@@ -27,5 +27,4 @@ public class LaboratoryAddressController {
     	
         return new ResponseEntity<Address>(addressService.address(id), HttpStatus.OK);
     }
-
 }

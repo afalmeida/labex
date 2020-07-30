@@ -13,7 +13,6 @@ import com.dasa.labex.entity.LaboratoryExamEntity;
 public interface LaboratoryExamRepository extends JpaRepository<LaboratoryExamEntity, Long> {
 	
 	public List<LaboratoryExamEntity> findByLaboratory(LaboratoryEntity laboratory);
-	
 	void deleteByLaboratoryAndExam(LaboratoryEntity laboratory, ExamEntity exam);
 
 }

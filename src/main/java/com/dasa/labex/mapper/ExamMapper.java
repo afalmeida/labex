@@ -21,7 +21,6 @@ public class ExamMapper {
 	
 	private ExamMapper() {}
 	
-	
 	public Exam buildExam(ExamEntity examEntity) {
 		Link linkSelf = linkTo(methodOn(ExamController.class).exam(examEntity.getId())).withSelfRel();
 

@@ -29,7 +29,6 @@ import com.dasa.labex.service.LaboratoryExamService;
 @RequestMapping(value = "/labex/laboratories", produces = MediaType.APPLICATION_JSON_VALUE)
 public class LaboratoryExamController {
 	
-	
 	@Autowired
 	private LaboratoryExamService laboratoryExamService;
     
@@ -80,6 +79,4 @@ public class LaboratoryExamController {
             throw new BadRequestException(validationErrors);
         }
 	}
-    
-
 }

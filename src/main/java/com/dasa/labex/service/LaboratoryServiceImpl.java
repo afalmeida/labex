@@ -18,7 +18,6 @@ import com.dasa.labex.exception.NotFoundException;
 import com.dasa.labex.exception.UnprocessableEntityException;
 import com.dasa.labex.factory.LaboratoryFactory;
 import com.dasa.labex.mapper.LaboratoryMapper;
-import com.dasa.labex.model.ExamUpload;
 import com.dasa.labex.model.Laboratory;
 import com.dasa.labex.model.LaboratoryUpload;
 import com.dasa.labex.model.StatusEnum;

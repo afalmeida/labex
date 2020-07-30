@@ -17,7 +17,7 @@ import lombok.ToString;
 @ToString
 public class ExamUpload {
 	
-	@CsvBindByName()
+	@CsvBindByName
 	private String name;
 	
 

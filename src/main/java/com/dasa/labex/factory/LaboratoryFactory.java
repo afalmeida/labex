@@ -29,6 +29,7 @@ public class LaboratoryFactory {
 		
 		if(StringUtils.isNotBlank(examName)) {
 			laboratories = laboratoryRepository.findByExamName(examName);
+		
 		} else if(StringUtils.isNotBlank(name)) {
 			if (statusEnum.equals(StatusEnum.ALL)){
 				laboratories = laboratoryRepository.findByNameContains(name);

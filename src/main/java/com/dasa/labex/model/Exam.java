@@ -32,7 +32,7 @@ public class Exam extends RepresentationModel<Exam> {
 	private Long id;
 	
 	@NotEmpty
-	@CsvBindByName()
+	@CsvBindByName
 	private String name;
 	
 	@NotNull

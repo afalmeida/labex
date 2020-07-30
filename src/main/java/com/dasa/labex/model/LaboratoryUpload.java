@@ -15,31 +15,31 @@ import lombok.ToString;
 @ToString
 public class LaboratoryUpload {
 	
-	@CsvBindByName()
+	@CsvBindByName
 	private String name;
 	
-	@CsvBindByName()
+	@CsvBindByName
 	private String status;
 	
-	@CsvBindByName()
+	@CsvBindByName
 	private String street;
 	
-	@CsvBindByName()
+	@CsvBindByName
 	private String number;
 	
-	@CsvBindByName()
+	@CsvBindByName
 	private String neighborhood;
 	
-	@CsvBindByName()
+	@CsvBindByName
 	private String additionalInfo;
 	
-	@CsvBindByName()
+	@CsvBindByName
 	private String zipCode;
 	
-	@CsvBindByName()
+	@CsvBindByName
 	private String city;
 	
-	@CsvBindByName()
+	@CsvBindByName
 	private String state;
 
 }

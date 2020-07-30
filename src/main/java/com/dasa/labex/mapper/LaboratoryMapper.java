@@ -25,7 +25,6 @@ public class LaboratoryMapper {
 	@Autowired
 	private AddressMapper addressMapper;
 	
-	
 	public Laboratory buildLaboratory(LaboratoryEntity laboratoryEntity) {
 		Link linkSelf = linkTo(methodOn(LaboratoryController.class).laboratory(laboratoryEntity.getId())).withSelfRel();
 		Link linkLabAddress= linkTo(methodOn(LaboratoryAddressController.class).address(laboratoryEntity.getId())).withRel("address");
@@ -71,5 +70,4 @@ public class LaboratoryMapper {
 		
 		return laboratories;
 	}
-
 }

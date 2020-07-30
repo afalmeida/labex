@@ -37,8 +37,6 @@ public class ExamController {
 
 	private final static String DEFAULT_STATUS = "A";
 
-
-
 	@GetMapping()
 	@ResponseBody
 	public ResponseEntity<List<Exam>> exams(@RequestParam(value = "name", required = false) String name,
@@ -72,7 +70,6 @@ public class ExamController {
 		examService.uploadExams(file);
 		return new ResponseEntity<String>(HttpStatus.CREATED); 
     }
-
 
 
 	@PutMapping("/{id}")
