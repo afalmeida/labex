@@ -56,7 +56,7 @@ public class ExamServiceImpl implements ExamService {
 		
 		return exams;
 	}
-
+	
 	@Override
 	public Exam save(Exam exam) {
 		try {
@@ -96,4 +96,5 @@ public class ExamServiceImpl implements ExamService {
 			throw new InternalServerException(e);
 		}
 	}
+
 }

@@ -17,7 +17,6 @@ import com.dasa.labex.repository.LaboratoryAddressRepository;
 @Service
 public class AddressServiceImpl implements AddressService {
 	
-	
 	@Autowired
 	private AddressRepository addressRepository;
 	

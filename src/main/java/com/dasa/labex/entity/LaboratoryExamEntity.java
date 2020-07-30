@@ -36,11 +36,11 @@ public class LaboratoryExamEntity implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@OneToOne(cascade = CascadeType.ALL ,fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_laboratorio", referencedColumnName = "id")
 	private LaboratoryEntity laboratory;
 	
-	@OneToOne(cascade = CascadeType.ALL ,fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_exame", referencedColumnName = "id")
-	private ExamEntity examEntity;
+	private ExamEntity exam;
 }

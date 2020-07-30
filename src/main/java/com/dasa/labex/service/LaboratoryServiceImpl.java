@@ -108,7 +108,7 @@ public class LaboratoryServiceImpl implements LaboratoryService {
 				List<FieldError> validationErrors = new ArrayList<FieldError>();
 				validationErrors.add(FieldError.builder()
 						.name("status")
-						.error("Impossivel remover um laboratorye com status INATIVO")
+						.error("Impossivel remover um laboratorio com status INATIVO")
 						.build());
 				throw new UnprocessableEntityException(validationErrors);
 			}

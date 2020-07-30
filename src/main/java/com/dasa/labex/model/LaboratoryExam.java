@@ -1,14 +1,10 @@
 package com.dasa.labex.model;
 
-
-
 import javax.validation.Valid;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-import org.springframework.hateoas.RepresentationModel;
-
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import lombok.AllArgsConstructor;
@@ -24,17 +20,15 @@ import lombok.ToString;
 @EqualsAndHashCode(callSuper=false)
 @Valid
 @JsonInclude(Include.NON_NULL)
-public class Exam extends RepresentationModel<Exam> {
+public class LaboratoryExam {
 	
-	private Long id;
+	private Long laboratoryId;
 	
-	@NotEmpty
-	private String name;
-	
+	@JsonProperty("id")
 	@NotNull
-	private TypeEnum type;
+	private Long examId;
 	
-	@NotNull
-	private StatusEnum status;
+	@JsonProperty("name")
+	private String examName;
 
 }

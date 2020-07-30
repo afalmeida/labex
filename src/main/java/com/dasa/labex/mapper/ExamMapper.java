@@ -33,6 +33,24 @@ public class ExamMapper {
 				.add(linkSelf);
 	}
 	
+	public Exam buildExam(Long id, String name) {
+		Link linkSelf = linkTo(methodOn(ExamController.class).exam(id)).withSelfRel();
+		return Exam.builder()
+				.id(id)
+				.name(name)
+				.build()
+				.add(linkSelf);
+				
+	}
+	
+	public ExamEntity buildExam(Long id) {
+		return ExamEntity.builder()
+				.id(id)
+				.build();
+				
+	}
+	
+	
 	public ExamEntity buildExam(Exam exam) {
 		return ExamEntity.builder()
 				.id(exam.getId())

@@ -53,7 +53,8 @@ ALTER TABLE `laboratorioexame`
 --
 ALTER TABLE `laboratorioexame`
   ADD CONSTRAINT `fk_id_exame` FOREIGN KEY (`id_exame`) REFERENCES `exame` (`id`),
-  ADD CONSTRAINT `fk_id_laboratorioexame` FOREIGN KEY (`id_laboratorio`) REFERENCES `laboratorio` (`id`);
+  ADD CONSTRAINT `fk_id_laboratorioexame` FOREIGN KEY (`id_laboratorio`) REFERENCES `laboratorio` (`id`),
+  ADD CONSTRAINT `un_laboratorioexame` UNIQUE (`id_exame`,`id_laboratorio`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

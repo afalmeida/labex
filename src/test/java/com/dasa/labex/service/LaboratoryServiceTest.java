@@ -148,7 +148,7 @@ public class LaboratoryServiceTest {
 	            assertNotNull(httpClientErrorException);
 	            assertTrue(httpClientErrorException.getValidationErrors().size()==1);
 	            assertEquals("Existem erros de validacao no request enviado", ex.getMessage());
-	            assertEquals("Impossivel remover um laboratorye com status INATIVO", httpClientErrorException.getValidationErrors().get(0).getError());
+	            assertEquals("Impossivel remover um laboratorio com status INATIVO", httpClientErrorException.getValidationErrors().get(0).getError());
 	            assertSame(UnprocessableEntityException.class, ex.getClass());
 			}
     	}
