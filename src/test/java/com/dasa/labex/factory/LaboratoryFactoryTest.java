@@ -44,7 +44,7 @@ public class LaboratoryFactoryTest {
 	public void laboratoriesNameAtivo() {
 		Mockito.when(laboratoryRepository.findByNameContainsAndStatus("STRING",'A')).thenReturn(laboratoriesAtivoEntityMock());
 
-		List<Laboratory> laboratories = laboratoryFactory.laboratories("STRING", "A");
+		List<Laboratory> laboratories = laboratoryFactory.laboratories("STRING", "A", null);
 		assertNotNull(laboratories);
 		assertTrue(laboratories.size()==2);
 		assertTrue(laboratories.get(0).getStatus().equals(StatusEnum.ATIVO));
@@ -56,7 +56,7 @@ public class LaboratoryFactoryTest {
 	public void laboratoriesNameInativo() {
 		Mockito.when(laboratoryRepository.findByNameContainsAndStatus("STRING",'A')).thenReturn(laboratoriesInativoEntityMockEmpty());
 
-		List<Laboratory> laboratories = laboratoryFactory.laboratories("STRING", "I");
+		List<Laboratory> laboratories = laboratoryFactory.laboratories("STRING", "I", null);
 		assertNotNull(laboratories);
 		assertTrue(laboratories.isEmpty());
 		
@@ -66,7 +66,7 @@ public class LaboratoryFactoryTest {
 	public void laboratoriesAll() {
 		Mockito.when(laboratoryRepository.findAll()).thenReturn(laboratoriesEntityMock());
 
-		List<Laboratory> laboratories = laboratoryFactory.laboratories(null, "ALL");
+		List<Laboratory> laboratories = laboratoryFactory.laboratories(null, "ALL", null);
 		assertNotNull(laboratories);
 		assertTrue(laboratories.size()==2);
 		assertTrue(laboratories.get(0).getStatus().equals(StatusEnum.ATIVO));
@@ -78,7 +78,7 @@ public class LaboratoryFactoryTest {
 	public void laboratoriesAtivoAll() {
 		Mockito.when(laboratoryRepository.findByStatus('A')).thenReturn(laboratoriesAtivoEntityMock());
 
-		List<Laboratory> laboratories = laboratoryFactory.laboratories(null, "A");
+		List<Laboratory> laboratories = laboratoryFactory.laboratories(null, "A", null);
 		assertNotNull(laboratories);
 		assertTrue(laboratories.size()==2);
 		assertTrue(laboratories.get(0).getStatus().equals(StatusEnum.ATIVO));
@@ -90,7 +90,7 @@ public class LaboratoryFactoryTest {
 	public void laboratoriesInativoAll() {
 		Mockito.when(laboratoryRepository.findByStatus('I')).thenReturn(laboratoriesInativoEntityMock());
 
-		List<Laboratory> laboratories = laboratoryFactory.laboratories(null, "I");
+		List<Laboratory> laboratories = laboratoryFactory.laboratories(null, "I", null);
 		assertNotNull(laboratories);
 		assertTrue(laboratories.size()==2);
 		assertTrue(laboratories.get(0).getStatus().equals(StatusEnum.INATIVO));

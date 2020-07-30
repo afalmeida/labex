@@ -39,9 +39,10 @@ public class LaboratoryController {
     @ResponseBody
     public ResponseEntity<List<Laboratory>> laboratories(
     		@RequestParam(value = "name", required = false) String name,
-    		@RequestParam(defaultValue = DEFAULT_STATUS, value = "status", required = false) String status) {
+    		@RequestParam(defaultValue = DEFAULT_STATUS, value = "status", required = false) String status,
+    		@RequestParam(value = "examName", required = false) String examName) {
     	
-        return new ResponseEntity<List<Laboratory>>(laboratoryService.laboratories(name,status), HttpStatus.OK);
+        return new ResponseEntity<List<Laboratory>>(laboratoryService.laboratories(name,status, examName), HttpStatus.OK);
     }
     
     @GetMapping("/{id}")

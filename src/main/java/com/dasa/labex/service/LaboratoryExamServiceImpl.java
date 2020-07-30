@@ -118,6 +118,5 @@ public class LaboratoryExamServiceImpl implements LaboratoryExamService {
 		} catch (Exception e) {
 			throw new InternalServerException(e);
 		}
-		
 	}
 }

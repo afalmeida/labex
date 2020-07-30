@@ -75,9 +75,5 @@ public class AddressServiceImpl implements AddressService {
 		} catch (Exception e) {
 			throw new InternalServerException(e);
 		}
-
-		
-		
-
 	}
 }

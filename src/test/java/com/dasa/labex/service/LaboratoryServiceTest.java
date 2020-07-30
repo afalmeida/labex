@@ -79,9 +79,21 @@ public class LaboratoryServiceTest {
 	
 	@Test
 	public void laboratories() {
-		when(laboratoryFactory.laboratories(null,"ALL")).thenReturn(laboratoriesMock());
+		when(laboratoryFactory.laboratories(null,"ALL", null)).thenReturn(laboratoriesMock());
 
-		List<Laboratory> laboratories = laboratoryService.laboratories(null, "ALL");
+		List<Laboratory> laboratories = laboratoryService.laboratories(null, "ALL", null);
+		assertNotNull(laboratories);
+		assertTrue(laboratories.size()==2);
+		assertTrue(laboratories.get(0).getStatus().equals(StatusEnum.ATIVO));
+		assertTrue(laboratories.get(1).getStatus().equals(StatusEnum.INATIVO));
+		
+	}
+	
+	@Test
+	public void laboratoriesExamName() {
+		when(laboratoryFactory.laboratories(null, null, "EXAM A")).thenReturn(laboratoriesMock());
+		
+		List<Laboratory> laboratories = laboratoryService.laboratories(null, null, "EXAM A");
 		assertNotNull(laboratories);
 		assertTrue(laboratories.size()==2);
 		assertTrue(laboratories.get(0).getStatus().equals(StatusEnum.ATIVO));
@@ -91,19 +103,19 @@ public class LaboratoryServiceTest {
 	
 	@Test
 	public void laboratorysNotFound() {
-		when(laboratoryFactory.laboratories(null,"ALL")).thenReturn(new ArrayList<Laboratory>());
+		when(laboratoryFactory.laboratories(null,"ALL", null)).thenReturn(new ArrayList<Laboratory>());
 
 		assertThrows(NotFoundException.class, () -> {
-			laboratoryService.laboratories(null, "ALL");
+			laboratoryService.laboratories(null, "ALL", null);
 		});
 		
 	}
 	
 	@Test
 	public void laboratorysStatusAtivo() {
-		when(laboratoryFactory.laboratories(null,"A")).thenReturn(laboratoriesStatusAtivoMock());
+		when(laboratoryFactory.laboratories(null,"A", null)).thenReturn(laboratoriesStatusAtivoMock());
 
-		List<Laboratory> laboratorys = laboratoryService.laboratories(null,"A");
+		List<Laboratory> laboratorys = laboratoryService.laboratories(null,"A", null);
 		assertNotNull(laboratorys);
 		assertTrue(laboratorys.size()==2);
 		assertFalse(laboratorys.stream()

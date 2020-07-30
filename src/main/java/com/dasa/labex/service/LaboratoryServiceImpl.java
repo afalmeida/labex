@@ -49,8 +49,8 @@ public class LaboratoryServiceImpl implements LaboratoryService {
 	}
 
 	@Override
-	public List<Laboratory> laboratories(String name, String status) {
-		List<Laboratory> laboratorys = laboratoryFactory.laboratories(name, status);
+	public List<Laboratory> laboratories(String name, String status, String exameName) {
+		List<Laboratory> laboratorys = laboratoryFactory.laboratories(name, status, exameName);
 		
 		if(laboratorys.isEmpty()) {
 			throw new NotFoundException();

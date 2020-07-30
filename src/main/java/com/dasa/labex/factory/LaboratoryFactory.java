@@ -23,27 +23,29 @@ public class LaboratoryFactory {
 	@Autowired
 	private LaboratoryMapper laboratoryMapper;
 	
-	public List<Laboratory> laboratories(String name, String status) {
-		List<LaboratoryEntity> exams = null;
+	public List<Laboratory> laboratories(String name, String status, String examName) {
+		List<LaboratoryEntity> laboratories = null;
 		StatusEnum statusEnum = StatusEnum.status(status);
 		
-		if(StringUtils.isNotBlank(name)) {
+		if(StringUtils.isNotBlank(examName)) {
+			laboratories = laboratoryRepository.findByExamName(examName);
+		} else if(StringUtils.isNotBlank(name)) {
 			if (statusEnum.equals(StatusEnum.ALL)){
-				exams = laboratoryRepository.findByNameContains(name);
+				laboratories = laboratoryRepository.findByNameContains(name);
 			
 			} else {
-				exams = laboratoryRepository.findByNameContainsAndStatus(name,statusEnum.getStatus().charAt(0));
+				laboratories = laboratoryRepository.findByNameContainsAndStatus(name,statusEnum.getStatus().charAt(0));
 			}
 
 		} else {
 			if (statusEnum.equals(StatusEnum.ALL)){
-				exams = laboratoryRepository.findAll();
+				laboratories = laboratoryRepository.findAll();
 			
 			} else {
-				exams = laboratoryRepository.findByStatus(statusEnum.getStatus().charAt(0));
+				laboratories = laboratoryRepository.findByStatus(statusEnum.getStatus().charAt(0));
 			}
 		}
 		
-		return laboratoryMapper.buildLaboratories(exams);
+		return laboratoryMapper.buildLaboratories(laboratories);
 	}
 }
