@@ -38,23 +38,31 @@ Acessar a pasta do projeto
 cd labex
 ```
 
-
-Acessar a pasta do mysql para iniciar o BD 
-
-```
-cd mysql
-```
-
-Executar o docker compose, para fazer pull e executar a imagem do mysql, phpmyadmin(gerenciador do mysql)
+Executar o docker compose, para fazer pull e executar a imagem do mysql, phpmyadmin(gerenciador do mysql), labex
 
 ```
 docker-compose up -d
 ```
 
+
+## Validar
+
+Acessar resource-status, retorno tem que ser OK
+
+```
+http://localhost:8081/resource-status
+```
+
+## Documentacao
+http://localhost:8081/swagger-ui.html
+
+
+
+## Desenvolvimento 
 Acessar a pasta do projeto 
 
 ```
-cd .. 
+cd labex
 ```
 
 Instalar as dependências
@@ -68,17 +76,5 @@ mvn clean install
 ```
 java -jar target/labex-0.0.1-SNAPSHOT.jar 
 ```
-
-## Validar
-
-Acessar resource-status, retorno tem que ser OK
-
-```
-http://localhost:8081/resource-status
-```
-
-## Documentacao
-http://localhost:8081/swagger-ui.html
-
 
 Mão na massa!
